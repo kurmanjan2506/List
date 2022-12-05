@@ -1,0 +1,11 @@
+Django
+Pillow==8.0.0
+djangorestframework
+python-decouple
+djangorestframework-simplejwt
+drf-yasg
+django-filter
+whitenoise
+gunicorn
+django-cors-headers
+psycopg2-binary
