@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     # my_apps
     'account',
-    'list',
+    'tasks',
 ]
 
 MIDDLEWARE = [

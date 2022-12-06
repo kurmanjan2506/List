@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Tasks
+from .models import Category, Task
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -13,8 +13,8 @@ class TaskListSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(required=True, queryset=Category.objects.all())
 
     class Meta:
-        model = Tasks
-        fields = ('id', 'title', 'date', 'status')
+        model = Task
+        fields = ('owner', 'title', 'completed', 'category')
 
 
 class TaskDetailSerializer(serializers.ModelSerializer):
@@ -22,5 +22,7 @@ class TaskDetailSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(required=True, queryset=Category.objects.all())
 
     class Meta:
-        model = Tasks
+        model = Task
         fields = '__all__'
+
+
