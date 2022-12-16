@@ -12,8 +12,7 @@ class IsTaskAuthor(permissions.BasePermission):
         except:
             return False
 
-
 class IsTaskAuthorTwo(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        print(request.user, obj.owner)
         return request.user == obj.owner
+
