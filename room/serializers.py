@@ -14,7 +14,7 @@ class BookRoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookedRoom
-        fields = ('id', 'owner', 'start_time')
+        fields = ('id', 'owner', 'start_time', 'invite')
 
 class BookRoomDetailSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'celery',
+    'whitenoise.runserver_nostatic',
+    'corsheaders',
     # my_apps
     'account',
     'tasks',
