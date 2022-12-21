@@ -16,8 +16,7 @@ class TaskViewSet(ModelViewSet):
     def get_permissions(self):
         if self.request.method == 'POST':
             return [permissions.IsAuthenticated()]
-        elif self.request.method == 'GET':
-            return [IsTaskAuthorTwo()]
+        return [IsTaskAuthorTwo()]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
