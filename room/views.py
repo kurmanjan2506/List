@@ -14,12 +14,7 @@ class RoomViewSet(ModelViewSet):
 
 class BookedRoomViewSet(ModelViewSet):
     queryset = BookedRoom.objects.all()
-
-    def get_permissions(self):
-        if self.request.method == 'POST':
-            return [permissions.IsAuthenticated()]
-        elif self.request.method == 'GET':
-            return [IsBookedAuthorTwo()]
+    permission_classes = (permissions.AllowAny,)
 
     def get_serializer_class(self):
         if self.action == 'list':
