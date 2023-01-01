@@ -1,9 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework.routers import SimpleRouter
 
+
+router = SimpleRouter()
+router.register('favorite', views.FavoritePersonViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('', views.UserListView.as_view()),  # accounts/
     path('<int:pk>/', views.UserDetailView.as_view()),  # accounts/<id>
     path('login/', views.LoginView.as_view()),  # accounts/login/

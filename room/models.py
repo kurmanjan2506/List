@@ -48,3 +48,9 @@ class Notification(models.Model):
         verbose_name_plural = 'Уведомления'
 
 
+class FavoritesPeople(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites', null=True)
+    person = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='favorites_people')
+
+    class Meta:
+        unique_together = ['owner', 'person']

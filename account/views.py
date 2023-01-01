@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions, generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -8,7 +8,10 @@ from . import serializers
 from .permissions import IsAccountOwner
 from .send_email import send_code_password_reset
 from django.contrib.auth import get_user_model
-from .serializers import RegisterSerializer, UserListSerializer
+from .serializers import RegisterSerializer, UserListSerializer, FavoriteSerializer
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
+from room.models import FavoritesPeople
 
 User = get_user_model()
 
@@ -75,3 +78,17 @@ class RestorePasswordView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response('Password changed successfully!')
+
+
+class FavoritePersonViewSet(ModelViewSet):
+    queryset = FavoritesPeople.objects.all()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(owner=self.request.user)
+        return queryset
+
+    serializer_class = serializers.FavoriteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+

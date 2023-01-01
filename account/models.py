@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth import get_user_model
 
 
 class CustomUser(AbstractUser):
@@ -20,4 +21,8 @@ class CustomUser(AbstractUser):
         import uuid
         code = str(uuid.uuid4())
         self.activation_code = code
+
+
+
+
 

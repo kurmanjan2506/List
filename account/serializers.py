@@ -3,13 +3,16 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from room.models import FavoritesPeople
+
 User = get_user_model()
 
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'id')
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -71,3 +74,12 @@ class RestorePasswordSerializer(serializers.Serializer):
         user.activation_code = ''
         user.save()
         return user
+
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = FavoritesPeople
+        fields = ('owner', 'person')
+

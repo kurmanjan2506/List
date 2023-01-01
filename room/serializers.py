@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Room, BookedRoom, Notification
+from .models import Room, BookedRoom, Notification, FavoritesPeople
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -28,3 +28,6 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = '__all__'
+
+
+
