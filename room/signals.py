@@ -14,6 +14,7 @@ def task(created:bool, instance):
         )
     else:
         Notification.objects.create(
+
             message=f'Состоится встреча {instance.get("title")}\n'
                     f'Чтобы посмотреть детали встречи, перейдите на нее'
         )

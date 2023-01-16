@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Room, BookedRoom, Notification
+from .models import Room, BookedRoom, Notification, Month
 from account.models import CustomUser
 
 
@@ -12,4 +12,5 @@ class BookedRoomAdmin(admin.ModelAdmin):
 admin.site.register(Room)
 admin.site.register(BookedRoom)
 admin.site.register(Notification)
+admin.site.register(Month)
 
