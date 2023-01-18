@@ -27,11 +27,24 @@ class Month:
              (twelve, 'December'))
 
 
+# class Week:
+#     one = 1
+#     two = 2
+#     three = 3
+#     four = 4
+#     five = 5
+#     six = 6
+#     seven = 7
+#     week = ((one, 'Понедельник'), (two, 'Втоник'), (three, 'Среда'), (four, 'Четверг'), (five, 'Пятница'),
+#             (six, 'Суббота'), (seven, 'Воскресенье'))
+
+
 
 class Room(models.Model):
     title = models.CharField(max_length=50)
     date = models.DateField()
     month = models.ForeignKey('Month', on_delete=models.CASCADE, related_name='months')
+    # week = models.ForeignKey('Week', on_delete=models.CASCADE, related_name='weeks')
     ten = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL, related_name='ten', blank=True)
     eleven = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL, related_name='eleven', blank=True)
     twelve = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL, related_name='twelve', blank=True)
@@ -58,6 +71,10 @@ class Month(models.Model):
     month = models.SmallIntegerField(choices=Month.month)
 
 
+# class Week(models.Model):
+#     week = models.SmallIntegerField(choices=Week.week)
+
+
 
 @receiver(post_save, sender=Month)
 def month_pre_save(sender, instance, *args, **kwargs):
@@ -71,6 +88,20 @@ def month_pre_save(sender, instance, *args, **kwargs):
         except ValueError:
             pass
     Room.objects.bulk_create(ls)
+
+
+# @receiver(post_save, sender=Week)
+# def week_pre_save(sender, instance, *args, **kwargs):
+#     from datetime import date
+#     ls = []
+#     for x in range(8):
+#         try:
+#             ls.append(Room(title='Meeting', date=date(2023, instance.week, x), week=instance))
+#             ls.append(Room(title='Studio', date=date(2023, instance.week, x), week=instance))
+#             ls.append(Room(title='Production', date=date(2023, instance.week, x), week=instance))
+#         except ValueError:
+#             pass
+#     Room.objects.bulk_create(ls)
 
 
 class BookedRoom(models.Model):
