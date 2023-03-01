@@ -3,7 +3,7 @@ from rest_framework import permissions, generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenViewBase, TokenObtainPairView
 from . import serializers
 from .permissions import IsAccountOwner
 from .send_email import send_code_password_reset
@@ -41,6 +41,7 @@ class RegistrationView(APIView):
 
 class LoginView(TokenObtainPairView):
     permission_classes = (permissions.AllowAny,)
+    serializer_class = serializers.LoginSerializer
 
 
 class LogoutView(GenericAPIView):
@@ -90,5 +91,3 @@ class FavoritePersonViewSet(ModelViewSet):
 
     serializer_class = serializers.FavoriteSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-

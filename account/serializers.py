@@ -3,10 +3,28 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework_simplejwt.serializers import TokenObtainSerializer
 from room.models import FavoritesPeople
 
 User = get_user_model()
+
+
+class LoginSerializer(TokenObtainSerializer):
+    @classmethod
+    def get_token(cls, user):
+        return RefreshToken.for_user(user)
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
+        data['username'] = attrs.get('username')
+        user_id = UserListSerializer(User.objects.all(), many=True).data
+        for i in user_id:
+            if data['username'] == i.get('username'):
+                 data['user_id'] = i.get('id')
+        return data
 
 
 class UserListSerializer(serializers.ModelSerializer):
