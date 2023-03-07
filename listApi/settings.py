@@ -193,7 +193,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     'http://3.83.158.158',
+    'https://booking-rooms.vercel.app/',
+    'http://booking-rooms.vercel.app/',
     'https://booking-rooms.vercel.app',
+    'http://booking-rooms.vercel.app'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -208,3 +211,6 @@ CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+
+# 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
