@@ -211,5 +211,5 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 
 CSRF_TRUSTED_ORIGINS = ['https://list-production.up.railway.app/','https://*.127.0.0.1']
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # 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
