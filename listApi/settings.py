@@ -210,4 +210,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 
+CSRF_TRUSTED_ORIGINS = ['https://list-production.up.railway.app/','https://*.127.0.0.1']
+
 # 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
