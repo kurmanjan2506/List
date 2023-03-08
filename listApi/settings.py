@@ -185,19 +185,19 @@ SIMPLE_JWT = {
 }
 
 # Cors настройки
-CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    'http://3.83.158.158',
-    'https://booking-rooms.vercel.app/',
-    'http://booking-rooms.vercel.app/',
-    'https://booking-rooms.vercel.app',
-    'http://booking-rooms.vercel.app'
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://example.com",
+#     "https://sub.example.com",
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000",
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000",
+#     'http://3.83.158.158',
+#     'https://booking-rooms.vercel.app/',
+#     'http://booking-rooms.vercel.app/',
+#     'https://booking-rooms.vercel.app',
+#     'http://booking-rooms.vercel.app'
+# ]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
