@@ -4,14 +4,22 @@ from . import serializers
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from .models import Room, BookedRoom, Notification
-from .permissions import IsBookedAuthor, IsBookedAuthorTwo
+from .permissions import IsBookedAuthor
 from rest_framework.response import Response
 
 
 class RoomViewSet(ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = serializers.RoomSerializer
-    permissions = (permissions.AllowAny(),)
+
+    def get_permissions(self):
+        if self.request.method == 'PATCH':
+            self.permission_classes = (IsBookedAuthor,)
+        elif self.request.method == 'POST':
+            self.permission_classes = (permissions.IsAdminUser,)
+        else:
+            self.permission_classes = (permissions.AllowAny,)
+        return super(RoomViewSet, self).get_permissions()
 
 
 class BookedRoomViewSet(ModelViewSet):
