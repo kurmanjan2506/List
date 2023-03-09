@@ -15,10 +15,10 @@ class RoomViewSet(ModelViewSet):
     def get_permissions(self):
         if self.request.method == 'PATCH':
             self.permission_classes = (IsBookedAuthor,)
-        elif self.request.method == 'POST':
-            self.permission_classes = (permissions.IsAdminUser,)
-        else:
+        elif self.request.method == 'GET':
             self.permission_classes = (permissions.AllowAny,)
+        else:
+            self.permission_classes = (permissions.IsAdminUser,)
         return super(RoomViewSet, self).get_permissions()
 
 
