@@ -1,11 +1,8 @@
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from account.models import CustomUser
 from django.contrib.auth import get_user_model
-import datetime
-
 
 User = get_user_model()
 
@@ -25,19 +22,6 @@ class Month:
     month = ((one, 'January'), (two, 'February'), (three, 'March'), (four, 'April'), (five, 'May'), (six, 'June'),
              (seven, 'July'), (eight, 'August'), (nine, 'September'), (ten, 'October'), (eleven, 'November'),
              (twelve, 'December'))
-
-
-# class Week:
-#     one = 1
-#     two = 2
-#     three = 3
-#     four = 4
-#     five = 5
-#     six = 6
-#     seven = 7
-#     week = ((one, 'Понедельник'), (two, 'Втоник'), (three, 'Среда'), (four, 'Четверг'), (five, 'Пятница'),
-#             (six, 'Суббота'), (seven, 'Воскресенье'))
-
 
 
 class Room(models.Model):
@@ -71,11 +55,6 @@ class Month(models.Model):
     month = models.SmallIntegerField(choices=Month.month)
 
 
-# class Week(models.Model):
-#     week = models.SmallIntegerField(choices=Week.week)
-
-
-
 @receiver(post_save, sender=Month)
 def month_pre_save(sender, instance, *args, **kwargs):
     from datetime import date
@@ -90,48 +69,34 @@ def month_pre_save(sender, instance, *args, **kwargs):
     Room.objects.bulk_create(ls)
 
 
-# @receiver(post_save, sender=Week)
-# def week_pre_save(sender, instance, *args, **kwargs):
-#     from datetime import date
-#     ls = []
-#     for x in range(8):
-#         try:
-#             ls.append(Room(title='Meeting', date=date(2023, instance.week, x), week=instance))
-#             ls.append(Room(title='Studio', date=date(2023, instance.week, x), week=instance))
-#             ls.append(Room(title='Production', date=date(2023, instance.week, x), week=instance))
-#         except ValueError:
-#             pass
-#     Room.objects.bulk_create(ls)
-
-
-class BookedRoom(models.Model):
-    title = models.CharField(max_length=50, default='Встреча')
-    owner = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='organizer', null=True)
-    room = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE)
-    invite = models.ManyToManyField(CustomUser, related_name='invited')
-    start_time = models.TimeField()
-    over_time = models.TimeField()
-    description = models.TextField(blank=True)
-
-    class Meta:
-        verbose_name = 'Резерв комнаты'
-        verbose_name_plural = 'Резерв комнат'
-
-    def __str__(self):
-        return f'{self.title} - {self.owner} - {self.room} - {self.start_time}'
-
-
-class Notification(models.Model):
-    timestamp = models.DateTimeField(default=datetime.datetime.now)
-    message = models.TextField()
-    signals = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.message
-
-    class Meta:
-        verbose_name = 'Уведомление'
-        verbose_name_plural = 'Уведомления'
+# class BookedRoom(models.Model):
+#     title = models.CharField(max_length=50, default='Встреча')
+#     owner = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='organizer', null=True)
+#     room = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE)
+#     invite = models.ManyToManyField(CustomUser, related_name='invited')
+#     start_time = models.TimeField()
+#     over_time = models.TimeField()
+#     description = models.TextField(blank=True)
+#
+#     class Meta:
+#         verbose_name = 'Резерв комнаты'
+#         verbose_name_plural = 'Резерв комнат'
+#
+#     def __str__(self):
+#         return f'{self.title} - {self.owner} - {self.room} - {self.start_time}'
+#
+#
+# class Notification(models.Model):
+#     timestamp = models.DateTimeField(default=datetime.datetime.now)
+#     message = models.TextField()
+#     signals = models.BooleanField(default=False)
+#
+#     def __str__(self):
+#         return self.message
+#
+#     class Meta:
+#         verbose_name = 'Уведомление'
+#         verbose_name_plural = 'Уведомления'
 
 
 class FavoritesPeople(models.Model):
