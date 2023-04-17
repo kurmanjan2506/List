@@ -9,8 +9,8 @@ class IsBookedAuthor(permissions.BasePermission):
         a = Room.objects.filter(id=id_)
         serializer = RoomSerializer(a, many=True)
         try:
-            for key in request.data: # Это время которое мы передаем (11)
-                for i in serializer.data: # Это все данные по айди комнаты
+            for key in request.data:
+                for i in serializer.data:
                     if i[key] == request.user.id or i[key] == None:
                         return True
         except:
